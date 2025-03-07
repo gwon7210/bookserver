@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { ProfileModule } from './profiles/profile.module';
 import { Profile } from './profiles/profile.entity';
-import { BookClubsModule } from './bookclubs/bookclubs.module';
-import { BookClub } from './bookclubs/bookclub.entity';
+import { JoinedBookClubsModule } from './joinedBookClubs/joinedbookclub.module';
+import { JoinedBookClub } from './joinedBookClubs/joinedbookclub.entity';
 import { OpenBookClubsModule } from './openBookClubs/openBookClubs.module';
 import { OpenBookClub } from './openBookClubs/openBookClub.entity';
 
@@ -15,17 +18,25 @@ import { OpenBookClub } from './openBookClubs/openBookClub.entity';
     ConfigModule.forRoot(), // .env 파일 로드
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: [User, Profile, BookClub, OpenBookClub], // 엔티티 연결
-      synchronize: true, // 개발 중 자동 테이블 생성
+      host: process.env.DB_HOST ?? 'localhost',
+      port: parseInt(process.env.DB_PORT ?? '3306'),
+      username: process.env.DB_USERNAME ?? 'bookandyou',
+      password: process.env.DB_PASSWORD ?? '1212',
+      database: process.env.DB_DATABASE ?? 'bookandyou',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true, // 개발 환경에서만 true로 설정
+      dropSchema: true,
     }),
-    UsersModule, // 사용자 모듈 추가
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secret: 'your-secret-key', // 실제 환경에서는 환경변수로 관리해야 합니다
+      signOptions: { expiresIn: '1h' },
+    }),
+    AuthModule,
+    UsersModule,
     ProfileModule,
-    BookClubsModule,
+    JoinedBookClubsModule,
+    TypeOrmModule.forFeature([JoinedBookClub]),
     OpenBookClubsModule,
   ],
 })
