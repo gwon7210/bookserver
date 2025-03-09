@@ -5,13 +5,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { User } from './users/user.entity';
 import { ProfileModule } from './profiles/profile.module';
-import { Profile } from './profiles/profile.entity';
-import { JoinedBookClubsModule } from './joinedBookClubs/joinedbookclub.module';
-import { JoinedBookClub } from './joinedBookClubs/joinedbookclub.entity';
-import { OpenBookClubsModule } from './openBookClubs/openBookClubs.module';
-import { OpenBookClub } from './openBookClubs/openBookClub.entity';
+import { BookClubsModule } from './bookClubs/bookClubs.module';
 
 @Module({
   imports: [
@@ -35,9 +30,7 @@ import { OpenBookClub } from './openBookClubs/openBookClub.entity';
     AuthModule,
     UsersModule,
     ProfileModule,
-    JoinedBookClubsModule,
-    TypeOrmModule.forFeature([JoinedBookClub]),
-    OpenBookClubsModule,
+    BookClubsModule,
   ],
 })
 export class AppModule {}
