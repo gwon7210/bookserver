@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { MyBookclub } from '../myBookClubs/myBookClub.entity';
 
 @Entity()
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
   @Column()
   password: string; // 암호화 필요 (다음 단계에서 적용)
+
+  @OneToMany(() => MyBookclub, (myBookclub) => myBookclub.user, { cascade: true })
+  myBookclubs: MyBookclub[];
 }

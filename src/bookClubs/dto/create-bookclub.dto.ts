@@ -14,6 +14,11 @@ export class CreateBookClubDto {
   @IsUrl()
   imageUrl?: string;
 
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  age: number;
+
   @IsOptional()
   @IsNumber()
   @Min(1)

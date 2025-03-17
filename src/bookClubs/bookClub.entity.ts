@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { MyBookclub } from '../myBookClubs/myBookClub.entity';
 
 @Entity()
 export class BookClub {
@@ -20,6 +21,9 @@ export class BookClub {
   @Column({ default: 0 })
   memberCount: number;
 
+  @Column({ default: 0 })
+  age: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -34,4 +38,8 @@ export class BookClub {
 
   @Column({ length: 20, default: 'active' })
   status: string;
+
+  @OneToMany(() => MyBookclub, (myBookclub) => myBookclub.bookClub)
+  myBookclubs: MyBookclub[];
+
 }
