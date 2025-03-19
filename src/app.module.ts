@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module';
 import { ProfileModule } from './profiles/profile.module';
 import { BookClubsModule } from './bookClubs/bookClubs.module';
 import { MyBookclubsModule } from './myBookClubs/myBookClub.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { MyBookclubsModule } from './myBookClubs/myBookClub.module';
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: 'your-secret-key', // 실제 환경에서는 환경변수로 관리해야 합니다
+      secret: process.env.JWT_SECRET || 'your-secret-key',
       signOptions: { expiresIn: '1h' },
     }),
     AuthModule,
@@ -33,6 +35,12 @@ import { MyBookclubsModule } from './myBookClubs/myBookClub.module';
     ProfileModule,
     BookClubsModule,
     MyBookclubsModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {}
