@@ -1,8 +1,7 @@
 import { DataSource } from 'typeorm';
-import { MyBookclub } from './myBookClubs/myBookClub.entity';
 import { BookClub } from './bookClubs/bookClub.entity';
 import { User } from './users/user.entity';
-
+import { BookMeeting } from './bookMeetings/bookMeeting.entity';
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: 'localhost',
@@ -10,6 +9,6 @@ export const AppDataSource = new DataSource({
   username: 'bookandyou',
   password: '1212',
   database: 'bookandyou',
-  entities: [MyBookclub, BookClub, User],
+  entities: [BookClub, User, BookMeeting],
   synchronize: true,
 });

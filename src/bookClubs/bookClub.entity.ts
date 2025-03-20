@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { MyBookclub } from '../myBookClubs/myBookClub.entity';
+import { BookMeeting } from '../bookMeetings/bookMeeting.entity';
 
 @Entity()
 export class BookClub {
@@ -39,7 +39,6 @@ export class BookClub {
   @Column({ length: 20, default: 'active' })
   status: string;
 
-  @OneToMany(() => MyBookclub, (myBookclub) => myBookclub.bookClub)
-  myBookclubs: MyBookclub[];
-
+  @OneToMany(() => BookMeeting, (bookMeeting) => bookMeeting.bookClub)
+  bookMeetings: BookMeeting[];
 }

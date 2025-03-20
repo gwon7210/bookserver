@@ -26,13 +26,16 @@ async function bootstrap() {
     ('Mystery Readers', 'Gone Girl', 'Mystery', 'https://picsum.photos/200/300', 3, 10, 'Unraveling the best mystery novels', 'active', 22);
   `);
 
+
   await connection.query(`
-    INSERT INTO \`my_bookclub\` (\`userId\`, \`meetingDate\`, \`bookClubId\`) VALUES
-    (1, '2025-03-15 18:00:00', 1),
-    (2, '2025-03-16 19:00:00', 2),
-    (3, '2025-03-17 20:00:00', 3),
-    (4, '2025-03-18 21:00:00', 4),
-    (5, '2025-03-19 22:00:00', 5);
+    INSERT INTO \`book_meeting\` (\`title\`, \`meetingDate\`, \`currentAttendees\`, \`maxAttendees\`, \`location\`, \`description\`, \`status\`, \`bookClubId\`) VALUES
+    ('첫 번째 프라이드와 편견 토론', '2025-04-15 15:00:00', 2, 8, '서울 종로구 카페', '프라이드와 편견의 캐릭터 분석에 대해 토론합니다', 'scheduled', 1),
+    ('듄 영화와 책 비교하기', '2025-04-16 17:30:00', 3, 10, '강남구 스터디룸', '듄 영화와 원작 소설을 비교 분석합니다', 'scheduled', 2),
+    ('명상록 독서 세션', '2025-04-20 19:00:00', 4, 6, '온라인 줌 미팅', '스토아 철학의 현대적 적용에 대해 이야기합니다', 'scheduled', 3),
+    ('호빗: 작가의 세계관', '2025-04-22 18:00:00', 2, 7, '부산 해운대 도서관', '톨킨의 중간계 세계관에 대해 탐구합니다', 'scheduled', 4),
+    ('미스터리 소설 작법 분석', '2025-04-25 16:00:00', 3, 9, '대전 문화센터', '건 걸과 같은 현대 미스터리 소설의 작법을 분석합니다', 'scheduled', 5),
+    ('클래식 문학의 현대적 해석', '2025-05-05 14:00:00', 1, 8, '인천 북카페', '클래식 문학의 현대적 재해석에 대해 토론합니다', 'scheduled', 1),
+    ('SF 소설의 과학적 정확성', '2025-05-10 16:00:00', 2, 6, '대구 과학관', '과학 소설에서의 과학적 정확성의 중요성에 대해 논의합니다', 'scheduled', 2);
   `);
 
   await app.listen(process.env.PORT ?? 3000);

@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProfileModule } from './profiles/profile.module';
 import { BookClubsModule } from './bookClubs/bookClubs.module';
-import { MyBookclubsModule } from './myBookClubs/myBookClub.module';
+import { BookMeetingsModule } from './bookMeetings/bookMeetings.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
@@ -34,7 +34,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     UsersModule,
     ProfileModule,
     BookClubsModule,
-    MyBookclubsModule,
+    BookMeetingsModule,
   ],
   providers: [
     {
